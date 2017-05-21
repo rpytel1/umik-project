@@ -2,7 +2,9 @@ import argparse
 import imutils
 import time
 import cv2
-from skvideo.io import VideoCapture
+import skvideo.io
+import skvideo.datasets
+
 import sys
 import base64
 import os
@@ -16,7 +18,6 @@ if __name__ == "__main__":
     ap.add_argument("-a", "--min-area", type=int, default=500, help="minimum area size")
     args = vars(ap.parse_args())
 
-    camera = VideoCapture(0)
     # camera.open()
     time.sleep(0.25)
 
@@ -26,13 +27,12 @@ if __name__ == "__main__":
     firstFrame = None
 
     # loop over the frames of the video
-    while True:
-        grabbed, frame = camera.read()
+    videogen = skvideo.io.vreader(0)
 
-        if not grabbed:
-            break
-
+    for frame in videogen:
         frame = imutils.resize(frame, width=500)
+
+        cv2.imwrite('lol.png',frame)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         gray = cv2.GaussianBlur(gray, (21, 21), 0)
 
@@ -43,15 +43,14 @@ if __name__ == "__main__":
         frameDelta = cv2.absdiff(firstFrame, gray)
         thresh = cv2.threshold(frameDelta, 25, 255, cv2.THRESH_BINARY)[1]
         thresh = cv2.dilate(thresh, None, iterations=2)
-        (cnts, _) = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
-                                     cv2.CHAIN_APPROX_SIMPLE)
+        _, cnts, _ = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
 
         for c in cnts:
             if cv2.contourArea(c) > args["min_area"]:
-                img = base64.b64encode(np.array(cv2.imencode('.jpg', frame)[1]).tostring())
+                img = str(base64.b64encode(np.array(cv2.imencode('.jpg', frame)[1]).tostring()))
                 if get_detection_score([img]) > 1:
-                    post_to_emotion_detection()
+                    post_to_emotion_detection([img])
 
         firstFrame = frame
 
@@ -62,4 +61,3 @@ if __name__ == "__main__":
             break
 
     # cleanup the cameras and close any open windows
-    camera.release()
