@@ -45,12 +45,12 @@ def emotion_scores():
         return json.dumps(result)
 
 
-@app.route('/emotion_scores/<object_id>/', methods=['GET'])
-def detection_scores(object_id):
-    result = []
-    for entity in mongo_client.find({"_id": ObjectId(object_id)}):
-        result.append({entity["face_position"], entity["emotion"]})
-    return json.dumps(result)
+# @app.route('/emotion_scores/<object_id>/', methods=['GET'])
+# def emotion_scores(object_id):
+#     result = []
+#     for entity in mongo_client.find({"_id": ObjectId(object_id)}):
+#         result.append({entity["face_position"], entity["emotion"]})
+#     return json.dumps(result)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

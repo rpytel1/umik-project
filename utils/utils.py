@@ -3,7 +3,6 @@ import base64
 from PIL import Image
 import requests
 import json
-from functional import seq
 
 
 def get_image_from_string(base_string):
@@ -36,10 +35,11 @@ def get_result_from_microsoft_api(image):
 
 
 def get_detection_score(pic_arr, address="localhost"):
-    r = requests.post("http://" + address + ":4000/detection_scores/", data=json.dumps({"64images": pic_arr}))
+    r = requests.post("http://" + address + ":4000/detection_scores/",
+                      data=json.dumps({"64images": pic_arr}))
     print(r.content)
-    return json.loads(str(r.content))
+    return json.loads(r.content.decode())
 
 def post_to_emotion_detection(pic_arr, address="localhost"):
     r = requests.post("http://" + address + ":5000/emotion_scores/", data=json.dumps({"64images": pic_arr}))
-    return json.loads(str(r.content))
+    return json.loads(r.content.decode())
