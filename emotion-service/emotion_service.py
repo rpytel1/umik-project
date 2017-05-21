@@ -1,5 +1,7 @@
 from flask import Flask, request
 import json
+
+from flask_cors import CORS
 from functional import seq
 import requests
 # from ..utils.utils import get_image_from_string
@@ -11,17 +13,22 @@ from bson.objectid import ObjectId
 import copy
 import time
 
+
 def get_image_from_string(base_string):
     buffer = BytesIO()
     buffer.write(base64.b64decode(base_string))
     buffer.seek(0)
     return buffer
 
+
 def maxx(list):
     return max(list) if len(list) != 0 else 0
 
+
 app = Flask(__name__)
+CORS(app)
 mongo_client = MongoClient()["emotion_faces"]["emotion_entities"]
+
 
 def get_result_from_microsoft_api(image):
     headers = {
@@ -45,8 +52,8 @@ def get_result_from_microsoft_api(image):
 def emotion_scores():
     if request.method == 'POST':
         result = list(seq(json.loads(request.data.decode('utf-8'))['64images']) \
-                        .map(lambda x: get_image_from_string(x)) \
-                        .map(lambda x: get_result_from_microsoft_api(x)))
+                      .map(lambda x: get_image_from_string(x)) \
+                      .map(lambda x: get_result_from_microsoft_api(x)))
 
         copy_res = copy.deepcopy(result)
         for entities in copy_res:
@@ -74,6 +81,18 @@ def detection_scores(object_id):
     for entity in mongo_client.find({"_id": ObjectId(object_id)}):
         result.append({entity["face_position"], entity["emotion"]})
     return json.dumps(result)
+
+
+@app.route('/emotion_scores/lasthappy/', methods=['GET'])
+def emotion_scores():
+    result = []
+    for entity in mongo_client.find({}):
+        result.append({"face_position": entity["face_position"],
+                       "emotion": entity["emotion"],
+                       "time": entity["time"],
+                       "picture": entity["picture"]})
+    return json.dumps(result)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
