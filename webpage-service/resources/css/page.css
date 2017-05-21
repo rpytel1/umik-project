@@ -1,0 +1,76 @@
+navbar-default {
+  background-color: darkgreen;
+  border-color: darkgreen;
+}
+
+/* Title */
+.navbar-default .navbar-brand {
+  color: white;
+
+}
+
+.navbar-brand {
+  background-image: url("resources/img/logo.png");
+  position: relative;
+  z-index: -1;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: white;
+}
+
+/* Link */
+.navbar-default .navbar-nav > li > a {
+  color: white;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: white;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: white;
+  background-color: green;
+}
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: white;
+  background-color: darkgreen;
+}
+
+/* Caret */
+.navbar-default .navbar-nav > .dropdown > a .caret {
+  border-top-color: darkgreen;
+  border-bottom-color: darkgreen;
+}
+
+.navbar-default .navbar-nav > .dropdown > a:hover .caret,
+.navbar-default .navbar-nav > .dropdown > a:focus .caret {
+  border-top-color: darkgreen;
+  border-bottom-color: darkgreen;
+}
+
+.navbar-default .navbar-nav > .open > a .caret,
+.navbar-default .navbar-nav > .open > a:hover .caret,
+.navbar-default .navbar-nav > .open > a:focus .caret {
+  border-top-color: darkgreen;
+  border-bottom-color: darkgreen;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: white;
+  }
+
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: darkgreen;
+  }
+}
+
