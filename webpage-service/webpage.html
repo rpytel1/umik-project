@@ -78,7 +78,7 @@
     </div>
     <div class="col-sm-8 text-left">
       <h3>Last client</h3>
-      <img src="resources/img/arnie.jpg">
+      <img src="data:image/jpg;base64,{{smile.picture[0]}}">
       <p>Time : {{smile.time}}</p>
       <p>Emotion : {{smile.emotion}}</p>
       <hr>
@@ -86,34 +86,53 @@
 
         <div class="col-lg-12">
           <h2 class="page-header">Recent clients</h2>
+          <button type="button" class="btn btn-success" ng-model="detection" ng-click="showFaceDetection()">Show face
+            detection
+          </button>
+          <br/><br/>
         </div>
 
         <div class="col-lg-3 col-md-4 col-xs-6 thumb" ng-repeat="image in greeting">
-          <div ng-if="image.emotion==='happiness'" >
-            <a class="thumbnail" href="#" style="background-color: green!important; color:white" >
-              <img src="data:image/jpg;base64,{{image.picture[0]}}">
+          <div ng-if="image.emotion==='happiness'">
+            <a class="thumbnail" href="#"
+               style="width:250px;border:2px solid green;">
+              <div ng-style="{'background-image':'url(data:image/jpeg;base64,'+image.picture[0]+')'}"
+                   style="background-size: contain;width:240px;height:240px; background-repeat: no-repeat">
+                <div ng-if="detection"
+                     ng-style="{ 'margin-left':image.face_position.left+'px','margin-top':image.face_position.top+'px','width':image.face_position.width+'px','height':image.face_position.height+'px'}"
+                     style="border:1px solid yellow"></div>
+              </div>
               <p>Time : {{image.time}}</p>
               <p>Emotion : {{image.emotion}}</p>
             </a>
           </div>
-          <div ng-if="image.emotion!='happiness'" style="background-color: red">
-            <a class="thumbnail" href="#">
-              <img src="data:image/jpg;base64,{{image.picture[0]}}">
-              <
+          <div ng-if="image.emotion!='happiness'">
+            <a class="thumbnail" href="#"
+               style="width:250px;">
+              <div ng-style="{'background-image':'url(data:image/jpeg;base64,'+image.picture[0]+')'}"
+                   style="background-size: contain;width:240px;height:240px; background-repeat: no-repeat;overflow: auto">
+                <div ng-if="detection"
+                     ng-style="{ 'margin-left':image.face_position.left+'px','margin-top':image.face_position.top+'px','width':image.face_position.width+'px','height':image.face_position.height+'px'}"
+                     style="border:1px solid yellow"></div>
+              </div>
               <p>Time : {{image.time}}</p>
               <p>Emotion : {{image.emotion}}</p>
             </a>
-          </div>
-        </div>
 
+
+          </div>
+
+        </div>
       </div>
 
-
     </div>
-    <div class="col-sm-2 sidenav">
 
-    </div>
+
   </div>
+  <div class="col-sm-2 sidenav">
+
+  </div>
+</div>
 </div>
 
 </body>
