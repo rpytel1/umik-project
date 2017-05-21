@@ -2,7 +2,6 @@ import argparse
 import imutils
 import time
 import cv2
-import skvideo.io
 import skvideo.datasets
 
 import sys
@@ -21,20 +20,20 @@ if __name__ == "__main__":
     # camera.open()
     time.sleep(0.25)
 
-    # otherwise, we are reading from a video file
-
-    # initialize the first frame in the video stream
     firstFrame = None
+    cam = cv2.VideoCapture(0)
 
-    # loop over the frames of the video
-    videogen = skvideo.io.vreader(0)
+    while True:
+        ret, frame = cam.read()
+        if not ret:
+            print(ret)
+            break
 
-    for frame in videogen:
-        frame = imutils.resize(frame, width=500)
-
-        cv2.imwrite('lol.png',frame)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         gray = cv2.GaussianBlur(gray, (21, 21), 0)
+
+        print(gray.shape)
+        print(frame.shape)
 
         if firstFrame is None:
             firstFrame = gray
@@ -52,12 +51,4 @@ if __name__ == "__main__":
                 if get_detection_score([img]) > 1:
                     post_to_emotion_detection([img])
 
-        firstFrame = frame
-
-        key = cv2.waitKey(1) & 0xFF
-
-            # if the `q` key is pressed, break from the lop
-        if key == ord("q"):
-            break
-
-    # cleanup the cameras and close any open windows
+        firstFrame = gray
