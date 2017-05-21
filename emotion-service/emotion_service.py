@@ -10,8 +10,11 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 import copy
 import time
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+CORS(app)
 mongo_client = MongoClient()["emotion_faces"]["emotion_entities"]
 
 
