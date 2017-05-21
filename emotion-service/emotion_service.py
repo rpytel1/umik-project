@@ -83,16 +83,15 @@ def detection_scores(object_id):
     return json.dumps(result)
 
 
-@app.route('/emotion_scores/lasthappy/', methods=['GET'])
-def emotion_scores():
+@app.route('/lasthappy/', methods=['GET'])
+def last_happy():
     result = []
-    for entity in mongo_client.find({}):
-        result.append({"face_position": entity["face_position"],
-                       "emotion": entity["emotion"],
-                       "time": entity["time"],
-                       "picture": entity["picture"]})
+    entity = mongo_client.find_one();
+    result.append({"face_position": entity["face_position"],
+                   "emotion": entity["emotion"],
+                   "time": entity["time"],
+                   "picture": entity["picture"]})
     return json.dumps(result)
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

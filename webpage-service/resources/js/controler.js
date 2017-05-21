@@ -7,9 +7,12 @@ angular.module('demo', [])
       $scope.greeting.reverse();
       $scope.greeting.forEach(function (e, i, array) {
         e["time"] = timeConverter(e["time"]);
-
       });
-
+    });
+    $http.get('http://localhost:5000/lasthappy/').then(function (response) {
+      $scope.smile = response.data[0];
+      $scope.smile["time"]=timeConverter($scope.smile["time"]);
+      console.log(response.data[0]);
     });
   });
 function timeConverter(UNIX_timestamp) {
