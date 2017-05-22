@@ -23,7 +23,7 @@ angular.module('demo', [])
 
       });
     });
-    $http.get('http://localhost:5000/lasthappy/').then(function (response) {
+    $http.get('http://localhost:5000/last_happy_client/').then(function (response) {
       $scope.smile = response.data[0];
       $scope.smile["time"] = timeConverter($scope.smile["time"]);
 
