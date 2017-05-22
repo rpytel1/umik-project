@@ -47,7 +47,7 @@ def emotion_scores():
 @app.route('/last_happy_client/', methods=['GET'])
 def last_happy():
     result = []
-    entity = list(mongo_client.find())[-1];
+    entity = list(mongo_client.find())[-1]
     result.append({"face_position": entity["face_position"],
                    "emotion": entity["emotion"],
                    "time": entity["time"],
