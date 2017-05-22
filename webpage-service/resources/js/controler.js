@@ -18,6 +18,7 @@ angular.module('demo', [])
           e.face_position.left = e.face_position.left / scale;
           e.face_position.width = e.face_position.width / scale;
           e.face_position.height = e.face_position.height / scale;
+          e.face_position.top = e.face_position.top / scale;
           console.log(e);
         });
 
