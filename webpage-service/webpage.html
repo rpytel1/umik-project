@@ -4,6 +4,7 @@
   <title>Emotions 4 You</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="refresh" content="10" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="icon" type="image/png" sizes="16x16" href="resources/img/favicon.png">
   <link rel="stylesheet" href="resources/css/page.css">
@@ -95,9 +96,9 @@
         <div class="col-lg-3 col-md-4 col-xs-6 thumb" ng-repeat="image in greeting">
           <div ng-if="image.emotion==='happiness'">
             <a class="thumbnail" href="#"
-               style="width:250px;border:2px solid green;">
+               style="width:250px;border:2px solid green;overflow: auto!important">
               <div ng-style="{'background-image':'url(data:image/jpeg;base64,'+image.picture[0]+')'}"
-                   style="background-size: contain;width:240px;height:240px; background-repeat: no-repeat">
+                   style="background-size: contain;width:240px;height:240px;overflow: auto!important; background-repeat: no-repeat">
                 <div ng-if="detection"
                      ng-style="{ 'margin-left':image.face_position.left+'px','margin-top':image.face_position.top+'px','width':image.face_position.width+'px','height':image.face_position.height+'px'}"
                      style="border:1px solid yellow"></div>
@@ -108,9 +109,9 @@
           </div>
           <div ng-if="image.emotion!='happiness'">
             <a class="thumbnail" href="#"
-               style="width:250px;">
+               style="width:250px;overflow: auto!important">
               <div ng-style="{'background-image':'url(data:image/jpeg;base64,'+image.picture[0]+')'}"
-                   style="background-size: contain;width:240px;height:240px; background-repeat: no-repeat;overflow: auto">
+                   style="background-size: contain;width:240px;height:240px; background-repeat: no-repeat;overflow: auto!important">
                 <div ng-if="detection"
                      ng-style="{ 'margin-left':image.face_position.left+'px','margin-top':image.face_position.top+'px','width':image.face_position.width+'px','height':image.face_position.height+'px'}"
                      style="border:1px solid yellow"></div>
