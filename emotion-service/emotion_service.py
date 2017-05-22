@@ -5,9 +5,8 @@ import requests
 import sys
 import os
 sys.path.append(os.path.realpath(os.path.join(os.path.dirname(__file__), "..")))
-from utils.utils import get_image_from_string, get_result_from_microsoft_api
+from utils.utils import get_image_raw_from_string, get_result_from_microsoft_api
 from pymongo import MongoClient
-from bson.objectid import ObjectId
 import copy
 import time
 from flask_cors import CORS
@@ -22,7 +21,7 @@ mongo_client = MongoClient()["emotion_faces"]["emotion_entities"]
 def emotion_scores():
     if request.method == 'POST':
         result = list(seq(json.loads(request.data.decode('utf-8'))['64images'])
-                        .map(lambda x: get_image_from_string(x))
+                        .map(lambda x: get_image_raw_from_string(x))
                         .map(lambda x: get_result_from_microsoft_api(x)))
 
         copy_res = copy.deepcopy(result)
@@ -45,12 +44,15 @@ def emotion_scores():
         return json.dumps(result)
 
 
-# @app.route('/emotion_scores/<object_id>/', methods=['GET'])
-# def emotion_scores(object_id):
-#     result = []
-#     for entity in mongo_client.find({"_id": ObjectId(object_id)}):
-#         result.append({entity["face_position"], entity["emotion"]})
-#     return json.dumps(result)
+@app.route('/last_happy_client/', methods=['GET'])
+def last_happy():
+    result = []
+    entity = mongo_client.find_one();
+    result.append({"face_position": entity["face_position"],
+                   "emotion": entity["emotion"],
+                   "time": entity["time"],
+                   "picture": entity["picture"]})
+    return json.dumps(result)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

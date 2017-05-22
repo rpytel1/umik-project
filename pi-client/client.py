@@ -5,8 +5,6 @@ import sys
 import base64
 import os
 import numpy as np
-from io import StringIO
-from PIL import Image
 sys.path.append(os.path.realpath(os.path.join(os.path.dirname(__file__), "..")))
 from utils.utils import get_detection_score, post_to_emotion_detection
 
@@ -48,7 +46,7 @@ if __name__ == "__main__":
             if cv2.contourArea(c) > args["min_area"]:
                 img = base64.b64encode(np.array(cv2.imencode('.jpeg', frame)[1]).tostring()).decode("utf-8")
                 print(img)
-                if get_detection_score([img])[0] > 1:
+                if get_detection_score([img])[0] > -1:
                     post_to_emotion_detection([img])
 
         firstFrame = gray

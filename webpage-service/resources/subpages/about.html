@@ -1,16 +1,15 @@
-<!DOCTYPE html>
 <html lang="en" ng-app="demo">
 <head>
   <title>Emotions 4 You</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="icon" type="image/png" sizes="16x16" href="resources/img/favicon.png">
-  <link rel="stylesheet" href="resources/css/page.css">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../resources/img/favicon.png">
+  <link rel="stylesheet" href="../../resources/css/page.css">
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="resources/js/controler.js"></script>
+  <script src="../../resources/js/controler.js"></script>
   <style>
     /* Remove the navbar's default margin-bottom and rounded borders */
     .navbar {
@@ -60,13 +59,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a href="#" class="pull-left"><img style="height:50px" src="resources/img/logo.png"></a>
+      <a href="#" class="pull-left"><img style="height:50px" src="../../resources/img/logo.png"></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="webpage.html">Home</a></li>
-        <li><a href="resources/subpages/about.html">About</a></li>
-        <li><a href="resources/subpages/contact.html">Contact</a></li>
+        <li><a href="../../webpage.html">Home</a></li>
+        <li class="active"><a href="./about.html">About</a></li>
+        <li><a href="./contact.html">Contact</a></li>
       </ul>
     </div>
   </div>
@@ -77,37 +76,16 @@
     <div class="col-sm-2 sidenav">
     </div>
     <div class="col-sm-8 text-left">
-      <h3>Last client</h3>
-      <img src="resources/img/arnie.jpg">
-      <p>Time : {{smile.time}}</p>
-      <p>Emotion : {{smile.emotion}}</p>
+      <h3>About</h3>
       <hr>
-      <div class="row">
+      Project is for UMIK classes. <br>
+      <hr>
+      Authors:</br>
+      Michał Bohn <br/>
+      Kamil Magryta<br/>
+      Rafał Pytel <br/>
 
-        <div class="col-lg-12">
-          <h2 class="page-header">Recent clients</h2>
-        </div>
-
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb" ng-repeat="image in greeting">
-          <div ng-if="image.emotion==='happiness'" >
-            <a class="thumbnail" href="#" style="background-color: green!important; color:white" >
-              <img src="data:image/jpg;base64,{{image.picture[0]}}">
-              <p>Time : {{image.time}}</p>
-              <p>Emotion : {{image.emotion}}</p>
-            </a>
-          </div>
-          <div ng-if="image.emotion!='happiness'" style="background-color: red">
-            <a class="thumbnail" href="#">
-              <img src="data:image/jpg;base64,{{image.picture[0]}}">
-              <
-              <p>Time : {{image.time}}</p>
-              <p>Emotion : {{image.emotion}}</p>
-            </a>
-          </div>
-        </div>
-
-      </div>
-
+      <hr>
 
     </div>
     <div class="col-sm-2 sidenav">
