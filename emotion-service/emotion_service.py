@@ -43,6 +43,14 @@ def emotion_scores():
                            "picture": entity["picture"]})
         return json.dumps(result[-21:-1])
 
+@app.route('/emotion_stats/', methods=['GET'])
+def emotion_scores():
+    return json.loads({
+        "happy_clients": mongo_client.find({"emotion": "Happiness"}).count(),
+        "sad_angry_clients":  mongo_client.find({"emotion": "Anger"}).count()
+                              + mongo_client.find({"emotion": "Sadness"}).count()
+    })
+
 
 @app.route('/last_happy_client/', methods=['GET'])
 def last_happy():
