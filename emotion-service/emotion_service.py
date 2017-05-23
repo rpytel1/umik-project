@@ -36,12 +36,12 @@ def emotion_scores():
 
     else:
         result = []
-        for entity in mongo_client.find({})[-21:-1]:
+        for entity in mongo_client.find({}):
             result.append({"face_position": entity["face_position"],
                            "emotion": entity["emotion"],
                            "time": entity["time"],
                            "picture": entity["picture"]})
-        return json.dumps(result)
+        return json.dumps(result[-21:-1])
 
 
 @app.route('/last_happy_client/', methods=['GET'])
