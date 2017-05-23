@@ -10,15 +10,15 @@ from utils.utils import get_detection_score, post_to_emotion_detection
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("-v", "--video", help="path to the video file")
-    ap.add_argument("-a", "--min-area", type=int, default=500, help="minimum area size")
+    ap.add_argument("-a", "--min-area", type=int, default=500, help="Minimum area size.")
+    ap.add_argument("-ad", "--address", type=str, default="localhost", help="Adress of service.")
     args = vars(ap.parse_args())
 
     # camera.open()
     time.sleep(0.25)
 
     firstFrame = None
-    cam = cv2.VideoCapture(0)
+    cam = cv2.VideoCapture(1)
     counter = 0
 
     while True:
@@ -47,7 +47,7 @@ if __name__ == "__main__":
             if cv2.contourArea(c) > args["min_area"] and counter % 12 == 0:
                 img = base64.b64encode(np.array(cv2.imencode('.jpeg', frame)[1]).tostring()).decode("utf-8")
                 print(img)
-                if get_detection_score([img])[0] > -1:
-                    post_to_emotion_detection([img])
+                if get_detection_score([img], address=args.address)[0] > -1:
+                    post_to_emotion_detection([img], address=args.address)
         counter += 1
         firstFrame = gray
