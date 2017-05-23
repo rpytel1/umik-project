@@ -18,7 +18,7 @@ if __name__ == "__main__":
     time.sleep(0.25)
 
     firstFrame = None
-    cam = cv2.VideoCapture(1)
+    cam = cv2.VideoCapture(0)
     counter = 0
 
     while True:
@@ -47,7 +47,7 @@ if __name__ == "__main__":
             if cv2.contourArea(c) > args["min_area"] and counter % 12 == 0:
                 img = base64.b64encode(np.array(cv2.imencode('.jpeg', frame)[1]).tostring()).decode("utf-8")
                 print(img)
-                if get_detection_score([img], address=args.address)[0] > -1:
-                    post_to_emotion_detection([img], address=args.address)
+                if get_detection_score([img], address=args["address"])[0] > -1:
+                    post_to_emotion_detection([img], address=args["address"])
         counter += 1
         firstFrame = gray
